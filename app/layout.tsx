@@ -1,16 +1,17 @@
 import "./globals.css";
-import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
+import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const quicksand = Quicksand({
-  variable: "--font-quicksand",
   subsets: ["latin"],
+  variable: "--font-quicksand",
 });
 
 export const metadata: Metadata = {
   title: "Pantry - Fresh Grocery Store",
-  description: "Your one-stop shop for fresh groceries, fruits, vegetables, and daily essentials.",
+  description:
+    "Your one-stop shop for fresh groceries, fruits, vegetables, and daily essentials.",
   applicationName: "Pantry",
   authors: [{ name: "Bismark Agyare" }],
   keywords: ["Next.js", "React", "Tailwind CSS", "Server Components"],
@@ -42,15 +43,15 @@ export const metadata: Metadata = {
   },
 };
 
+
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={quicksand.className}>{children}</body>
+      <html lang="en" className={quicksand.className}>
+        <body className="font-quicksand">{children}</body>
       </html>
     </ClerkProvider>
   );

@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/react";
+import { Footer } from "@/components/layout/footer";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -50,7 +51,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <ClerkProvider>
       <html lang="en" className={quicksand.className}>
         <body className="font-quicksand">
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            {children}
+            <Footer />
+          </TRPCReactProvider>
         </body>
       </html>
     </ClerkProvider>

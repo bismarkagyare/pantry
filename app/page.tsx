@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Hero } from "@/components/home/hero";
 import ProductsGrid from "@/components/products/products-grid";
 import { ExploreCategories } from "@/components/home/explore-categories";
+import { KeySellingPoints } from "@/components/home/key-selling-points";
 import { checkUser } from "@/lib/checkUser";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,10 @@ export default async function HomePage() {
         <ExploreCategories />
       </section>
       <section>
-        <ProductsGrid/>
+        <ProductsGrid />
+      </section>
+      <section>
+        <KeySellingPoints />
       </section>
     </main>
   );

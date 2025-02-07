@@ -51,17 +51,14 @@ const categories: Category[] = [
 export function ExploreCategories() {
   return (
     <div className="container py-16">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-brand-black">Explore Categories</h2>
-        <nav className="flex items-center gap-6">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-2xl font-bold text-brand-black whitespace-nowrap">Explore Categories</h2>
+        <nav className="flex flex-wrap items-center gap-4 sm:gap-6">
           <Link href="/category/all" className="text-brand-green">
             All
           </Link>
           {categories.map((category) => (
-            <div
-              key={category.name}
-              className="text-brand-black cursor-pointer font-medium hover:text-brand-green"
-            >
+            <div key={category.name} className="text-brand-black cursor-pointer font-medium hover:text-brand-green">
               {category.name}
             </div>
           ))}

@@ -1,5 +1,4 @@
 import { currentUser } from "@clerk/nextjs/server";
-//import { prisma } from "@/utils/prisma";
 import { db } from "@/server/db";
 
 export async function checkUser() {

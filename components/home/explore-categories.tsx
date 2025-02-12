@@ -53,7 +53,7 @@ export function ExploreCategories() {
     <div className="container py-16">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-2xl font-bold text-brand-black whitespace-nowrap">Explore Categories</h2>
-        <nav className="flex flex-wrap items-center gap-4 sm:gap-6">
+        <nav role="navigation" className="flex flex-wrap items-center gap-4 sm:gap-6">
           <Link href="/category/all" className="text-brand-green">
             All
           </Link>
@@ -65,7 +65,7 @@ export function ExploreCategories() {
         </nav>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div role="grid" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {categories.map((category) => (
           <Link
             key={category.name}

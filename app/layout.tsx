@@ -3,7 +3,11 @@ import { Quicksand } from "next/font/google";
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { CartProvider } from "@/contexts/cart-context";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -52,9 +56,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <html lang="en" className={quicksand.className}>
         <body className="font-quicksand">
           <TRPCReactProvider>
-            {children}
+            <CartProvider>
+              <Header />
+              {children}
+            </CartProvider>
             <Footer />
           </TRPCReactProvider>
+          <ToastContainer />
         </body>
       </html>
     </ClerkProvider>

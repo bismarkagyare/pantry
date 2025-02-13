@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import { Star, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
+import { cn } from "@/lib/utils";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+import { toast } from "react-toastify";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   oldPrice?: number;
@@ -14,6 +19,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({
+  id,
   name,
   price,
   oldPrice,
@@ -22,6 +28,26 @@ export function ProductCard({
   rating = 4,
   vendor = "Mr.food",
 }: ProductCardProps) {
+  const { addItem, isInCart, removeItem } = useCart();
+  const inCart = isInCart(id);
+
+  const handleCartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isInCart(id)) {
+      removeItem(id);
+      toast.success(`${name} removed from cart`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } else {
+      addItem({ id, name, price, imageUrl });
+      toast.success(`${name} added to cart`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+
   return (
     <div className="group rounded-lg border p-4 transition-all hover:shadow-lg">
       <div className="relative mb-3">
@@ -48,9 +74,26 @@ export function ProductCard({
             <span className="text-xl font-bold text-brand-green">${price.toFixed(2)}</span>
             {oldPrice && <span className="text-sm text-brand-grey line-through">${oldPrice.toFixed(2)}</span>}
           </div>
-          <button className="flex items-center gap-2 rounded-md bg-brand-lightGreen px-4 py-2 text-brand-green transition-colors hover:bg-brand-green hover:text-white">
-            <ShoppingCart className="h-4 w-4" />
-            Add
+          <button
+            onClick={handleCartClick}
+            className={cn(
+              "flex items-center gap-2 rounded-md px-4 py-2 transition-colors",
+              inCart
+                ? "bg-red-100 text-red-600 hover:bg-red-200"
+                : "bg-brand-lightGreen text-brand-green hover:bg-brand-green hover:text-white"
+            )}
+          >
+            {inCart ? (
+              <>
+                <MdOutlineRemoveShoppingCart className="h-4 w-4" />
+                Remove
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="h-4 w-4" />
+                Add
+              </>
+            )}
           </button>
         </div>
       </div>

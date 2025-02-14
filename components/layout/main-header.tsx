@@ -8,11 +8,13 @@ import logo from "@/assets/logo.png";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useCart } from "@/contexts/cart-context";
+import { useWishlist } from "@/contexts/wishlist-context";
 
 export function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isSignedIn } = useUser();
   const { items, getCartTotal } = useCart();
+  const { getWishlistCount } = useWishlist();
 
   return (
     <div className="border-b py-4">
@@ -49,17 +51,17 @@ export function MainHeader() {
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <div className="flex items-center gap-1">
+          <Link href="/wishlist" className="flex items-center gap-1">
             <div className="relative">
               <button aria-label="Wishlist">
                 <Heart className="h-6 w-6 text-brand-black" />
                 <div className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-green text-xs text-white">
-                  0
+                  {getWishlistCount()}
                 </div>
               </button>
             </div>
             <span className="text-sm text-brand-grey">Wishlist</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-1">
             <div className="relative">
               <Link href="/cart" aria-label="Shopping cart">

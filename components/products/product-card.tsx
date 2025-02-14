@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Star, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
+import { useWishlist } from "@/contexts/wishlist-context";
 import { cn } from "@/lib/utils";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -29,7 +30,9 @@ export function ProductCard({
   vendor = "Mr.food",
 }: ProductCardProps) {
   const { addItem, isInCart, removeItem } = useCart();
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlist();
   const inCart = isInCart(id);
+  const inWishlist = isInWishlist(id);
 
   const handleCartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -48,14 +51,31 @@ export function ProductCard({
     }
   };
 
+  const handleWishlistClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isInWishlist(id)) {
+      removeFromWishlist(id);
+      toast.success(`${name} removed from wishlist`);
+    } else {
+      addToWishlist({ id, name, price, imageUrl, category });
+      toast.success(`${name} added to wishlist`);
+    }
+  };
+
   return (
     <div className="group rounded-lg border p-4 transition-all hover:shadow-lg">
       <div className="relative mb-3">
         <div className="relative h-48 w-full">
           <Image src={imageUrl} alt={name} fill className="object-contain" />
         </div>
-        <button className="absolute right-2 top-2 rounded-full bg-white p-2 opacity-0 shadow-md transition-opacity group-hover:opacity-100">
-          <Star className="h-5 w-5 text-brand-grey" />
+        <button
+          onClick={handleWishlistClick}
+          className={cn(
+            "absolute right-2 top-2 rounded-full bg-white p-2 shadow-md transition-all",
+            inWishlist ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          )}
+        >
+          <Star className={cn("h-5 w-5", inWishlist ? "fill-yellow-400 text-yellow-400" : "text-brand-grey")} />
         </button>
       </div>
 

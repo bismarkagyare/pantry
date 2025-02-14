@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { CartProvider } from "@/contexts/cart-context";
+import { WishlistProvider } from "@/contexts/wishlist-context";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -57,8 +58,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body className="font-quicksand">
           <TRPCReactProvider>
             <CartProvider>
-              <Header />
-              {children}
+              <WishlistProvider>
+                <Header />
+                {children}
+              </WishlistProvider>
             </CartProvider>
             <Footer />
           </TRPCReactProvider>

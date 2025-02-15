@@ -63,7 +63,7 @@ export default function WishlistPage() {
                 <div className="text-gray-700">
                   <span className="text-sm text-gray-500 mr-2">Price:</span>${item.price.toFixed(2)}
                 </div>
-                <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">
+                <span className="inline-block rounded-md bg-green-100 px-3 py-1 text-sm text-green-800">
                   In Stock
                 </span>
               </div>
@@ -72,7 +72,7 @@ export default function WishlistPage() {
               <div className="hidden md:block md:col-span-2 text-center text-gray-700">${item.price.toFixed(2)}</div>
 
               <div className="hidden md:block md:col-span-2 text-center">
-                <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">
+                <span className="inline-block rounded-md bg-green-100 px-3 py-1 text-sm text-green-800">
                   In Stock
                 </span>
               </div>

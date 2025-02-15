@@ -9,12 +9,40 @@ import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useCart } from "@/contexts/cart-context";
 import { useWishlist } from "@/contexts/wishlist-context";
+import { useRouter } from "next/navigation";
+import { api } from "@/trpc/react";
 
 export function MainHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isSignedIn } = useUser();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   const { items, getCartTotal } = useCart();
   const { getWishlistCount } = useWishlist();
+
+  const router = useRouter();
+  const { data: categoryData } = api.category.getAll.useQuery();
+  const categories = categoryData?.categories ?? [];
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("search", searchQuery);
+    if (selectedCategory !== "all") {
+      params.set("category", selectedCategory.toLowerCase());
+    }
+
+    router.push(`/?${params.toString()}`);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+      setSearchQuery("");
+    }
+  };
 
   return (
     <div className="border-b py-4">
@@ -32,22 +60,33 @@ export function MainHeader() {
         </button>
 
         <div className="mx-8 ml-24 hidden max-w-3xl flex-1 items-center gap-4 lg:flex">
-          <div className="relative flex flex-1">
+          <form onSubmit={handleSearch} className="relative flex flex-1">
             <div className="flex items-center">
-              <select className="h-full border-y border-l border-brand-grey bg-[#F3F3F3] px-4 py-3 text-brand-black focus:border-brand-green focus:outline-none">
-                <option>All Categories</option>
-                {/* Add categories here */}
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="h-full border-y border-l border-brand-grey bg-[#F3F3F3] px-4 py-3 text-brand-black focus:border-brand-green focus:outline-none"
+              >
+                <option value="all">All Categories</option>
+                {categories?.map((category) => (
+                  <option key={category.id} value={category.name.toLowerCase()}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Search for items..."
               className="w-full border border-brand-grey bg-[#F3F3F3] px-6 py-3 focus:border-brand-green focus:outline-none"
             />
-            <button className="bg-brand-green p-3 transition-colors hover:bg-[#2e8e5f]">
+            <button type="submit" className="bg-brand-green p-3 transition-colors hover:bg-[#2e8e5f]">
               <Search className="h-5 w-5 text-white" />
             </button>
-          </div>
+          </form>
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
@@ -97,23 +136,39 @@ export function MainHeader() {
       {isMenuOpen && (
         <div className="fixed inset-0 top-[73px] z-50 bg-white p-4 lg:hidden">
           <div className="flex flex-col gap-6">
-            <div className="relative">
+            <form onSubmit={handleSearch} className="relative">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="mb-2 w-full rounded-lg border border-brand-grey bg-[#F3F3F3] px-4 py-3 focus:border-brand-green focus:outline-none"
+              >
+                <option value="all">All Categories</option>
+                {categories?.map((category) => (
+                  <option key={category.id} value={category.name.toLowerCase()}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for items..."
                 className="w-full rounded-lg border border-brand-grey bg-[#F3F3F3] px-6 py-3 focus:border-brand-green focus:outline-none"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md bg-brand-green p-2">
+              <button
+                type="submit"
+                className="absolute right-2 top-[60%] -translate-y-1/2 rounded-md bg-brand-green p-2"
+              >
                 <Search className="h-5 w-5 text-white" />
               </button>
-            </div>
+            </form>
 
             <nav className="flex flex-col gap-4">
               <Link href="/" className="flex items-center gap-2 text-brand-black">
                 <Home className="h-4 w-4" />
                 Home
               </Link>
-              {/* Add other nav links */}
             </nav>
 
             <div className="mt-auto flex flex-col gap-3">

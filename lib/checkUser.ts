@@ -5,31 +5,46 @@ export async function checkUser() {
   try {
     const user = await currentUser();
 
-    if (!user) return null;
+    // if no user is logged in, return early without throwing an error
+    if (!user) {
+      return {
+        id: null,
+        clerkUserId: null,
+        email: null,
+        role: "guest",
+      };
+    }
 
-    //check if user is in database
+    // ensure user has an email
+    if (!user.emailAddresses?.[0]?.emailAddress) {
+      throw new Error("User email not found");
+    }
+
+    // check if user exists in database
     const loggedInUser = await db.user.findUnique({
       where: { clerkUserId: user.id },
     });
 
     if (loggedInUser) return loggedInUser;
 
-    //if not in database, create new user
+    // create new user if not in database
     const newUser = await db.user.create({
       data: {
         clerkUserId: user.id,
-        email: user.emailAddresses[0]?.emailAddress ?? "",
+        email: user.emailAddresses[0].emailAddress,
+        role: "customer",
       },
     });
 
-    return {
-      id: newUser.id,
-      clerkUserId: newUser.clerkUserId,
-      email: newUser.email,
-      role: newUser.role,
-    };
+    return newUser;
   } catch (error) {
     console.error("Error in checkUser:", error);
-    throw error;
+    // return a guest user instead of throwing error
+    return {
+      id: null,
+      clerkUserId: null,
+      email: null,
+      role: "guest",
+    };
   }
 }

@@ -37,7 +37,7 @@ Welcome to **Pantry**, a modern, scalable, and feature-rich grocery e-commerce p
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/pantry.git
+   git clone https://github.com/bismarkagyare/pantry.git
    cd pantry
    ```
 
@@ -70,15 +70,15 @@ Welcome to **Pantry**, a modern, scalable, and feature-rich grocery e-commerce p
 
 ### Home Page
 
-![Home Page](path-to-home-screenshot)
+![Home Page](./assets/homepage.png)
 
-### Product Catalog
+<!-- ### Product Catalog
 
 ![Product Catalog](path-to-catalog-screenshot)
 
 ### Cart Page
 
-![Cart Page](path-to-cart-screenshot)
+![Cart Page](path-to-cart-screenshot) -->
 
 ## 📄 License
 

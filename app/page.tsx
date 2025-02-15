@@ -8,7 +8,11 @@ import { checkUser } from "@/lib/checkUser";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  await checkUser();
+  try {
+    await checkUser();
+  } catch (error) {
+    console.error("Failed to check user:", error);
+  }
 
   return (
     <main>

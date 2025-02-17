@@ -61,9 +61,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <WishlistProvider>
                 <Header />
                 {children}
+                <Footer />
               </WishlistProvider>
             </CartProvider>
-            <Footer />
           </TRPCReactProvider>
           <ToastContainer />
         </body>

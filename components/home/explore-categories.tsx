@@ -1,5 +1,6 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
 import { peachImage, vegetableImage, strawberryImage, appleImage, potatoImage, carrotImage } from "@/assets";
 
 type Category = {
@@ -54,30 +55,27 @@ export function ExploreCategories() {
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-2xl font-bold text-brand-black whitespace-nowrap">Explore Categories</h2>
         <nav role="navigation" className="flex flex-wrap items-center gap-4 sm:gap-6">
-          <Link href="/category/all" className="text-brand-green">
-            All
-          </Link>
+          <span className="text-brand-green">All</span>
           {categories.map((category) => (
-            <div key={category.name} className="text-brand-black cursor-pointer font-medium hover:text-brand-green">
+            <span key={category.name} className="text-brand-black font-medium">
               {category.name}
-            </div>
+            </span>
           ))}
         </nav>
       </div>
 
       <div role="grid" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {categories.map((category) => (
-          <Link
+          <div
             key={category.name}
-            href={`/category/${category.name.toLowerCase()}`}
-            className={`group flex flex-col items-center rounded-lg ${category.bgColor} p-6 transition-transform hover:scale-105`}
+            className={`group flex flex-col items-center rounded-lg ${category.bgColor} p-6 cursor-pointer transition-transform hover:scale-105`}
           >
             <div className="relative h-24 w-24">
               <Image src={category.image} alt={category.name} fill className="object-contain" />
             </div>
             <h3 className="mt-4 text-lg font-semibold text-brand-black">{category.name}</h3>
             <p className="text-sm text-brand-grey">{category.itemCount}</p>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

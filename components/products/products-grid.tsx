@@ -32,13 +32,17 @@ export default function ProductsGrid() {
     );
   }
 
-  return (
-    <div className="container py-8">
-      <h2 className="mb-8 text-2xl font-bold text-brand-black">
-        {search ? `Search Results for "${search}"` : "Popular Products"}
-      </h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredProducts?.map((product) => (
+  // split products into sections
+  const hotDeals = filteredProducts.slice(0, 5);
+  const promotions = filteredProducts.slice(5, 10);
+  const newProducts = filteredProducts.slice(10, 15);
+  const popularProducts = filteredProducts.slice(15);
+
+  const renderProductSection = (title: string, products: typeof filteredProducts, id?: string) => (
+    <section id={id} className="container py-8">
+      <h2 className="mb-8 text-2xl font-bold text-brand-black">{title}</h2>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {products?.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id}
@@ -49,6 +53,21 @@ export default function ProductsGrid() {
           />
         ))}
       </div>
+    </section>
+  );
+
+  return (
+    <div className="space-y-16">
+      {search ? (
+        renderProductSection(`Search Results for "${search}"`, filteredProducts)
+      ) : (
+        <>
+          {renderProductSection("⭐ Popular Products", popularProducts)}
+          {renderProductSection("🔥 Hot Deals", hotDeals, "hot-deals")}
+          {renderProductSection("🎁 Promotions", promotions, "promotions")}
+          {renderProductSection("✨ New Products", newProducts, "new-products")}
+        </>
+      )}
     </div>
   );
 }

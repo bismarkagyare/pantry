@@ -1,7 +1,15 @@
-import Link from "next/link";
+"use client";
+
 import { Mail, Phone } from "lucide-react";
 
 export function TopHeader() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="hidden bg-brand-green py-2 text-white sm:block">
       <div className="container flex items-center justify-between">
@@ -16,12 +24,12 @@ export function TopHeader() {
           </div>
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <Link href="/about" className="hover:underline">
+          <button onClick={() => scrollToSection("about")} className="hover:underline cursor-pointer">
             About Us
-          </Link>
-          <Link href="/contact" className="hover:underline">
+          </button>
+          <button onClick={() => scrollToSection("contact")} className="hover:underline cursor-pointer">
             Contact
-          </Link>
+          </button>
         </div>
       </div>
     </div>

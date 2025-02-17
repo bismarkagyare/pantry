@@ -22,11 +22,11 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t bg-white">
+    <footer className="border-t bg-white" id="footer">
       <div className="container py-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Company Info */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5" id="contact">
             <Link href="/" className="mb-6 flex items-center gap-3">
               <Image src={logo} alt="Pantry Logo" width={40} height={40} priority />
               <div className="flex flex-col">
@@ -57,6 +57,7 @@ export function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title} className="lg:col-span-2">
+              {title === "Useful links" && <div id="about"></div>}
               <h3 className="mb-6 text-lg font-semibold text-brand-black">{title}</h3>
               <ul className="space-y-4">
                 {links.map((link) => (

@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id            String   @id @default(uuid())
-  clerkUserId   String   @unique  // Make it optional initially
+  clerkUserId   String   @unique
   email         String   @unique
   role          String   @default("customer")
   orders        Order[]

@@ -11,6 +11,20 @@ export const productRouter = createTRPCRouter({
   }),
 
   //prettier-ignore
+  getProductById: publicProcedure
+    .input(z.string())
+    .query(async({ctx, input}) => {
+      return await ctx.db.product.findUnique({
+        where: {
+          id: input
+        },
+        include: {
+          category: true
+        }
+      })
+    }),
+
+  //prettier-ignore
   getByCategory: publicProcedure
     .input(z.string())
     .query(async({ctx, input}) => {

@@ -7,6 +7,7 @@ import { useWishlist } from "@/contexts/wishlist-context";
 import { cn } from "@/lib/utils";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface ProductCardProps {
   id: string;
@@ -35,7 +36,9 @@ export function ProductCard({
   const inWishlist = isInWishlist(id);
 
   const handleCartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("product id", id);
     e.preventDefault();
+    e.stopPropagation();
     if (isInCart(id)) {
       removeItem(id);
       toast.success(`${name} removed from cart`, {
@@ -53,6 +56,7 @@ export function ProductCard({
 
   const handleWishlistClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     if (isInWishlist(id)) {
       removeFromWishlist(id);
       toast.success(`${name} removed from wishlist`);
@@ -63,7 +67,7 @@ export function ProductCard({
   };
 
   return (
-    <div className="group rounded-lg border p-4 transition-all hover:shadow-lg">
+    <Link href={`/products/${id}`} className="group rounded-lg border p-4 transition-all hover:shadow-lg">
       <div className="relative mb-3">
         <div className="relative h-48 w-full">
           <Image src={imageUrl} alt={name} fill className="object-contain" />
@@ -117,6 +121,6 @@ export function ProductCard({
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

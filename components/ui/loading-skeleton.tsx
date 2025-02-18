@@ -16,3 +16,17 @@ export default function LoadingSkeleton() {
     </div>
   );
 }
+
+export function ProductLoadingSkeleton() {
+  return (
+    <div className="container grid grid-cols-1 gap-8 py-8 lg:grid-cols-2">
+      <div className="aspect-square animate-pulse rounded-lg bg-gray-200" />
+      <div className="space-y-4">
+        <div className="h-8 w-2/3 animate-pulse rounded bg-gray-200" />
+        <div className="h-4 w-1/3 animate-pulse rounded bg-gray-200" />
+        <div className="h-6 w-1/4 animate-pulse rounded bg-gray-200" />
+        <div className="h-24 w-full animate-pulse rounded bg-gray-200" />
+      </div>
+    </div>
+  );
+}

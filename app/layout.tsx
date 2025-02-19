@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={quicksand.className}>
+      <html lang="en" className={quicksand.className} suppressHydrationWarning>
         <body className="font-quicksand">
           <TRPCReactProvider>
             <CartProvider>

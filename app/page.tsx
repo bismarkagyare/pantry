@@ -16,7 +16,6 @@ export default async function HomePage() {
 
   return (
     <main>
-      {/* <Header /> */}
       <section>
         <Hero />
       </section>

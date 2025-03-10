@@ -17,6 +17,7 @@ interface CartContextType {
   updateQuantity: (id: string, quantity: number) => void;
   isInCart: (id: string) => boolean;
   getCartTotal: () => number;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -39,10 +40,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   //prettier-ignore
   const addItem = (item: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
-      // Step 1: find if the item already exists in the cart
+      // step 1: find if the item already exists in the cart
       const existingItem = prevItems.find((i) => i.id === item.id);
   
-      // Step 2: if item exists, update its quantity
+      // step 2: if item exists, update its quantity
       if (existingItem) {
         return prevItems.map((i) => 
           i.id === item.id 
@@ -51,7 +52,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         );
       }
   
-      // Step 3: if item doesn't exist, add it with quantity = 1
+      // step 3: if item doesn't exist, add it with quantity = 1
       return [...prevItems, { ...item, quantity: 1 }];
     });
   };
@@ -73,8 +74,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  const clearCart = () => {
+    setItems([])
+  }
+
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, isInCart, getCartTotal }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, isInCart, getCartTotal, clearCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -4,8 +4,10 @@ import { useCart } from "@/contexts/cart-context";
 import Image from "next/image";
 import { X, Plus, Minus } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
+  const router = useRouter()
   const { items, removeItem, updateQuantity, getCartTotal } = useCart();
 
   if (items.length === 0) {
@@ -155,7 +157,10 @@ export default function CartPage() {
                 <span className="text-base text-gray-600">Total</span>
                 <span className="text-base font-medium text-gray-900">${getCartTotal().toFixed(2)}</span>
               </div>
-              <button className="w-full rounded-md bg-brand-green py-3 text-sm font-medium text-white transition-colors hover:bg-brand-green/90">
+              <button
+                onClick={() => router.push("/checkout")}
+                className="w-full rounded-md bg-brand-green py-3 text-sm font-medium text-white transition-colors hover:bg-brand-green/90"
+              >
                 Proceed to Checkout
               </button>
             </div>

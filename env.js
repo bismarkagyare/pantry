@@ -23,15 +23,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
-    NEXT_PUBLIC_APP_URL: z
-      .string()
-      .url()
-      .refine((url) => {
-        if (process.env.NODE_ENV === "production") {
-          return url === "https://pantry-store.vercel.app";
-        }
-        return url === "http://localhost:3000";
-      }, "Invalid URL for current environment"),
+    NEXT_PUBLIC_APP_URL: z.string().url(),
   },
 
   /**

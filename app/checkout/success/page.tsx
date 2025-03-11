@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2, ShoppingBag, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/contexts/cart-context";
 import { motion } from "framer-motion";
+import { LoadingState } from "@/components/ui/loading-skeleton";
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
@@ -89,5 +90,16 @@ export default function SuccessPage() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+// Loading component
+
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <SuccessContent />
+    </Suspense>
   );
 }

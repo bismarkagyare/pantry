@@ -30,3 +30,11 @@ export function ProductLoadingSkeleton() {
     </div>
   );
 }
+
+export function LoadingState() {
+  return (
+    <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-brand-green border-t-transparent"></div>
+    </div>
+  );
+}

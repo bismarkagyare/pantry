@@ -5,6 +5,7 @@ import { TRPCError } from "@trpc/server";
 
 const lineItemSchema = z.object({
   productId: z.string(),
+  name: z.string(),
   quantity: z.number(),
   price: z.number(),
 });
@@ -39,7 +40,7 @@ export const paymentRouter = createTRPCRouter({
         // create order in database using the user's database ID
         const order = await ctx.db.order.create({
           data: {
-            userId: user.id, // Use the database user ID, not the Clerk ID
+            userId: user.id, // Use the database user ID,
             items: input.lineItems,
             total: input.totalAmount,
             status: "pending",
@@ -53,7 +54,7 @@ export const paymentRouter = createTRPCRouter({
             price_data: {
               currency: "usd",
               product_data: {
-                name: item.productId, // you might want to fetch product name from database
+                name: item.name, // you might want to fetch product name from database
               },
               unit_amount: Math.round(item.price * 100), // converts to cents
             },
@@ -65,7 +66,7 @@ export const paymentRouter = createTRPCRouter({
           customer_email: input.email,
           metadata: {
             orderId: order.id,
-            userId: user.id, // Use the database user ID in metadata
+            userId: user.id, // use the database user ID in metadata
           },
         });
 

@@ -48,6 +48,7 @@ export default function CheckoutPage() {
       productId: item.id,
       quantity: item.quantity,
       price: item.price,
+      name: item.name,
     }));
 
     //create checkout session

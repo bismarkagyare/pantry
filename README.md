@@ -6,14 +6,32 @@ Welcome to **Pantry**, a modern, scalable, and feature-rich grocery e-commerce p
 
 ## 🚀 Features
 
-- **Sleek & Responsive Design** – Modern UI with seamless cross-device experience.
-- **Secure Authentication** – Powered by Clerk for seamless sign-in, sign-up, and user management.
-- **Role-Based Access** – Differentiate between customers and admins with role-based access control.
-- **Product Catalog** – Browse and filter a wide range of grocery items with detailed product views.
-- **Dynamic Shopping Cart** – Add/remove items with real-time updates and a dynamic cart count.
-- **Type-Safe APIs** – Built with tRPC for end-to-end type safety and seamless backend communication.
-- **Scalable Database** – Leverages Prisma and NeonDB for reliable and scalable data storage.
-- **Optimized Performance** – Next.js Image Optimization and server-side rendering for fast load times.
+### User Experience
+
+- **Sleek & Responsive Design** – Modern UI with seamless cross-device experience
+- **Dynamic Search & Filters** – Easily find products by category or search terms
+- **Detailed Product Views** – Rich product information with high-quality images
+- **Wishlist Management** – Save favorite items for future purchase
+
+### Shopping Experience
+
+- **Dynamic Shopping Cart** – Add/remove items with real-time updates and a dynamic cart count
+- **Secure Checkout** – Integrated with Stripe for safe and reliable payment processing
+- **Order Management** – Track order status and view order history
+- **Multiple Payment Options** – Support for various payment methods through Stripe
+
+### Security & Authentication
+
+- **Secure Authentication** – Powered by Clerk for seamless sign-in, sign-up, and user management
+- **Role-Based Access** – Differentiate between customers and admins with role-based access control
+- **Protected Routes** – Secure endpoints and pages based on user authentication
+
+### Technical Features
+
+- **Type-Safe APIs** – Built with tRPC for end-to-end type safety and seamless backend communication
+- **Scalable Database** – Leverages Prisma and NeonDB for reliable and scalable data storage
+- **Optimized Performance** – Next.js Image Optimization and server-side rendering for fast load times
+- **Real-time Updates** – Instant cart and wishlist updates without page refreshes
 
 ---
 
@@ -56,6 +74,8 @@ Welcome to **Pantry**, a modern, scalable, and feature-rich grocery e-commerce p
    DATABASE_URL="your-database-url"
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your-clerk-publishable-key"
    CLERK_SECRET_KEY="your-clerk-secret-key"
+   STRIPE_SECRET_KEY="your-stripe-secret-key"
+   STRIPE_WEBHOOK_SECRET="your-stripe-webhook-secret"
    ```
 
 4. Run the development server:
